@@ -1,0 +1,6 @@
+fastapi
+uvicorn
+transformers
+torch
+diskcache
+prometheus-fastapi-instrumentator
