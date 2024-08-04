@@ -8,7 +8,8 @@ WORKDIR /app
 COPY requirements.txt .
 
 # Install the dependencies specified in requirements.txt
-RUN pip install --no-cache-dir -r requirements.txt
+#RUN pip install --no-cache-dir -r requirements.txt
+RUN pip install -r requirements.txt
 
 # Copy the application code into the container
 COPY . .
@@ -18,4 +19,10 @@ EXPOSE 8000
 
 # Command to run the application using Uvicorn
 CMD ["uvicorn", "app:app", "--host", "0.0.0.0", "--port", "8000"]
+
+# Build the Locust container
+RUN cd locust && docker build -t locust-image .
+
+# Run the Locust load testing
+RUN cd locust && docker run --rm -it -v "$(pwd)":/locust -p 8089:8089 locust-image -f locustfile.py --host=http://localhost:8000
 
