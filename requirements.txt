@@ -4,3 +4,4 @@ transformers
 torch
 diskcache
 prometheus-fastapi-instrumentator
+locust
