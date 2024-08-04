@@ -5,9 +5,12 @@ from transformers import pipeline
 # Initialize FastAPI
 app = FastAPI()
 
-# Load pre-trained models
-fill_mask = pipeline("fill-mask", model="bert-base-uncased")
-sentiment_analysis = pipeline("sentiment-analysis")
+## Load pre-trained models
+#fill_mask = pipeline("fill-mask", model="bert-base-uncased")
+#sentiment_analysis = pipeline("sentiment-analysis")
+# Load pre-trained models with increased timeout
+fill_mask = pipeline("fill-mask", model="bert-base-uncased", timeout=60)  # Increase timeout as needed
+sentiment_analysis = pipeline("sentiment-analysis", timeout=60)  # Increase timeout as needed
 
 class InputText(BaseModel):
     sentence: str
