@@ -54,3 +54,11 @@ jobs:
             exit 1
           fi
           echo "Application responded with status code: $response"
+
+      - name: Build Docker image for Locust
+        run: |
+          docker build -t locust-test -f Dockerfile.locust .
+
+      - name: Run Locust Load Test
+        run: |
+          docker run --network host locust-test locust --headless -u 10 -r 2 --run-time 1m --host http://localhost:8000
