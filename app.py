@@ -1,9 +1,13 @@
 from fastapi import FastAPI, HTTPException
 from pydantic import BaseModel
 from transformers import pipeline
+import diskcache as dc
 
 # Initialize FastAPI
 app = FastAPI()
+
+# Initialize diskcache
+cache = dc.Cache('cache-directory')  # Specify the directory for cache storage
 
 ## Load pre-trained models
 fill_mask = pipeline("fill-mask", model="bert-base-uncased")
@@ -17,6 +21,11 @@ async def get_suggestions(input_text: InputText):
     # Validate input
     if "<blank>" not in input_text.sentence:
         raise HTTPException(status_code=400, detail="Input must contain '<blank>'")
+
+    # Check if the response is cached
+    cached_response = cache.get(input_text.sentence)
+    if cached_response is not None:
+        return {"suggestions": cached_response}
 
     # Generate suggestions
     suggestions = fill_mask(input_text.sentence.replace("<blank>", fill_mask.tokenizer.mask_token))
