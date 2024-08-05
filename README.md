@@ -13,10 +13,16 @@ uvicorn app:app --host 0.0.0.0 --port 8000 --reload
 -Test the API:
 curl -X POST "http://localhost:8000/suggestions/" -H "Content-Type: application/json" -d '{"sentence": "have a <blank> day"}'
 
+-Start the Locust server at http://localhost:8089:
+locust -f locustfile.py --host=http://localhost:8000
+
 -Docker Build:
 systemctl start docker
 docker build -t mlops .
-docker run -p 8000:8000 mlops
+#docker run -p 8000:8000 mlops
+docker run -it --network host -p 8000:8000 mlops
 
--Start the Locust server at http://localhost:8089:
-locust -f locustfile.py --host=http://localhost:8000
+-Locust Docker Build:
+docker build -t locust-test -f Dockerfile.locust .
+docker run --network host -d --name locust-test
+
