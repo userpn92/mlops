@@ -83,17 +83,6 @@ You can test the API using `curl`:
 
 ```bash
 curl -X POST "http://localhost:8000/suggestions/" -H "Content-Type: application/json" -d '{"sentence": "have a <blank> day"}'
-
-## Load Testing with Locust
-
-To perform load testing, you can use Locust. Follow these steps:
-
-### Step 1: Build the Locust Docker Image
-
-Build the Docker image for Locust:
-
-```bash
-docker build -t locust-test -f Dockerfile.locust .
 ```
 
 ## Load Testing with Locust
