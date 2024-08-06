@@ -95,6 +95,18 @@ Build the Docker image for Locust:
 docker build -t locust-test -f Dockerfile.locust .
 ```
 
+## Load Testing with Locust
+
+To perform load testing, you can use Locust. Follow these steps:
+
+### Step 1: Build the Locust Docker Image
+
+Build the Docker image for Locust:
+
+```bash
+docker build -t locust-test -f Dockerfile.locust .
+```
+
 ### Step 2: Run the Locust Load Test
 
 Run the Locust load test:
@@ -110,10 +122,6 @@ Open your web browser and navigate to `http://localhost:8089` to configure and s
 ## Monitoring with Prometheus
 
 To monitor the application with Prometheus, follow these steps:
-
-### Step 1: Create a Prometheus Configuration File
-
-Create a `prometheus.yml` configuration file in the root directory with the following content:
 
 ### Step 1: Run Prometheus
 
