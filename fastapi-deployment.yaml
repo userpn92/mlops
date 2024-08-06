@@ -1,0 +1,20 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: mlops-deployment
+spec:
+  replicas: 3  # Number of replicas for load balancing
+  selector:
+    matchLabels:
+      app: mlops
+  template:
+    metadata:
+      labels:
+        app: mlops
+    spec:
+      containers:
+      - name: mlops
+        image: mlops
+        ports:
+        - containerPort: 8000
+
