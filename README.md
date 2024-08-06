@@ -49,7 +49,7 @@ docker run --network host -p 8000:8000 mlops
 - **Method**: `POST`
 - **Description**: Accepts a sentence with a `<blank>` placeholder and returns a list of positive suggestions to fill in the blank.
 
-You can also access the interactive API documentation by running your application and navigating to
+You can also access the interactive API documentation by running the application and navigating to
 `http://localhost:8000/docs` (Swagger UI) or `http://localhost:8000/redoc` (ReDoc).
 
 #### Request
@@ -156,7 +156,7 @@ sudo mv ./kind /usr/local/bin/kind
 
 ### Kind Deployment Commands
 
-Once Kind is installed, you can use the following commands to deploy your FastAPI application:
+Once Kind is installed, you can use the following commands to deploy the FastAPI application:
 
 ```bash
 kind create cluster
