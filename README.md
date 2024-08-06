@@ -6,7 +6,7 @@ This repository contains a FastAPI application that provides text suggestions to
 
 - [Requirements](#requirements)
 - [Building and Running the Application with Docker](#building-and-running-the-application-with-docker)
-- [API Documentation](#api-doc)
+- [API Documentation](#api-documentation)
 - [Load Testing with Locust](#load-testing-with-locust)
 - [Monitoring with Prometheus](#monitoring-with-prometheus)
 - [CI/CD with GitHub Actions](#cicd-with-github-actions)
@@ -40,6 +40,50 @@ Run the Docker container, mapping port 8000 of the container to port 8000 on you
 ```bash
 docker run --network host -p 8000:8000 mlops
 ```
+## API Documentation
+
+### Get Positive Suggestions
+
+- **Endpoint**: `/suggestions/`
+- **Method**: `POST`
+- **Description**: Accepts a sentence with a `<blank>` placeholder and returns a list of positive suggestions to fill in the blank.
+
+You can also access the interactive API documentation by running your application and navigating to:
+
+    Swagger UI: `http://localhost:8000/docs`
+    ReDoc: `http://localhost:8000/redoc`
+
+#### Request
+
+- **Content-Type**: `application/json`
+- **Body**:
+    ```json
+    {
+      "sentence": "have a <blank> day"
+    }
+    ```
+
+#### Response
+
+- **200 OK**: Returns a list of positive suggestions.
+    ```json
+    {
+      "suggestions": ["good", "excellent", "amazing"]
+    }
+    ```
+- **400 Bad Request**: If the input does not contain `<blank>`.
+    ```json
+    {
+      "detail": "Input must contain '<blank>'"
+    }
+    ```
+
+### Example Usage
+
+You can test the API using `curl`:
+
+```bash
+curl -X POST "http://localhost:8000/suggestions/" -H "Content-Type: application/json" -d '{"sentence": "have a <blank> day"}'
 
 ## Load Testing with Locust
 
