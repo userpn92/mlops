@@ -26,3 +26,6 @@ docker run -it --network host -p 8000:8000 mlops
 docker build -t locust-test -f Dockerfile.locust .
 docker run --network host -d --name locust-test
 
+-Run Prometheus:
+docker run --network host -p 9090:9090 -v $(pwd)/prometheus.yml:/etc/prometheus/prometheus.yml prom/prometheus
+
