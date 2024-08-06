@@ -10,6 +10,7 @@ This repository contains a FastAPI application that provides text suggestions to
 - [Load Testing with Locust](#load-testing-with-locust)
 - [Monitoring with Prometheus](#monitoring-with-prometheus)
 - [CI/CD with GitHub Actions](#cicd-with-github-actions)
+- [API Documentation](#api-doc)
 
 ## Requirements
 
@@ -111,4 +112,44 @@ Open your web browser and navigate to `http://localhost:9090` to access the Prom
 ## CI/CD with GitHub Actions
 
 This repository includes a GitHub Actions workflow for continuous integration. The workflow builds the Docker image and runs tests on every push and pull request to the `main` branch.
+
+## API Documentation
+
+### Get Positive Suggestions
+
+- **Endpoint**: `/suggestions/`
+- **Method**: `POST`
+- **Description**: Accepts a sentence with a `<blank>` placeholder and returns a list of positive suggestions to fill in the blank.
+
+#### Request
+
+- **Content-Type**: `application/json`
+- **Body**:
+    ```json
+    {
+      "sentence": "have a <blank> day"
+    }
+    ```
+
+#### Response
+
+- **200 OK**: Returns a list of positive suggestions.
+    ```json
+    {
+      "suggestions": ["good", "excellent", "amazing"]
+    }
+    ```
+- **400 Bad Request**: If the input does not contain `<blank>`.
+    ```json
+    {
+      "detail": "Input must contain '<blank>'"
+    }
+    ```
+
+### Example Usage
+
+You can test the API using `curl`:
+
+```bash
+curl -X POST "http://localhost:8000/suggestions/" -H "Content-Type: application/json" -d '{"sentence": "have a <blank> day"}'
 

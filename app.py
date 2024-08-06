@@ -9,7 +9,7 @@ from prometheus_fastapi_instrumentator import Instrumentator
 app = FastAPI()
 
 # Initialize diskcache
-cache = dc.Cache('cache-directory')  # Specify the directory for cache storage
+cache = dc.Cache('cache-directory')
 
 # Load pre-trained models
 fill_mask = pipeline("fill-mask", model="bert-base-uncased")
@@ -21,15 +21,20 @@ logger = logging.getLogger(__name__)
 
 # Initialize Prometheus Instrumentator
 instrumentator = Instrumentator()
-
-# Instrument the FastAPI app for Prometheus
 instrumentator.instrument(app).expose(app)
 
 class InputText(BaseModel):
     sentence: str
 
-@app.post("/suggestions/")
+@app.post("/suggestions/", summary="Get Positive Suggestions for a Sentence",
+          description="This endpoint accepts a sentence with a '<blank>' placeholder and returns a list of positive suggestions to fill in the blank.",
+          response_model=dict)
 async def get_suggestions(input_text: InputText):
+    """
+    Get suggestions for filling in the blank in a sentence.
+
+    - **sentence**: The input sentence containing a '<blank>' placeholder.
+    """
     logger.info(f"Received input: {input_text.sentence}")
 
     # Validate input
