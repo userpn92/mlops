@@ -10,6 +10,7 @@ This repository contains a FastAPI application that provides text suggestions to
 - [Load Testing with Locust](#load-testing-with-locust)
 - [Monitoring with Prometheus](#monitoring-with-prometheus)
 - [CI/CD with GitHub Actions](#cicd-with-github-actions)
+- [Optional Feature: Deploying with Kind and LoadBalancer](#optional-feature-deploying-with-kind-and-loadbalancer)
 
 ## Requirements
 
@@ -139,3 +140,29 @@ Open your web browser and navigate to `http://localhost:9090` to access the Prom
 
 This repository includes a GitHub Actions workflow for continuous integration. The workflow builds the Docker image and runs tests on every push and pull request to the `main` branch. Load Testing with Locust is also included.
 
+## Optional Feature: Deploying with Kind and LoadBalancer
+
+This section describes how to deploy the FastAPI application using Kind (Kubernetes IN Docker) with a LoadBalancer service.
+
+### Kind Installation
+
+To install Kind, run the following commands:
+
+```bash
+curl -Lo ./kind https://kind.sigs.k8s.io/dl/latest/kind-linux-amd64
+chmod +x ./kind
+sudo mv ./kind /usr/local/bin/kind
+```
+
+### Kind Deployment Commands
+
+Once Kind is installed, you can use the following commands to deploy your FastAPI application:
+
+```bash
+kind create cluster
+docker build -t mlops .
+kind load docker-image mlops
+kubectl apply -f fastapi-deployment.yaml
+kubectl apply -f fastapi-service.yaml
+kubectl port-forward service/mlops-service 8080:80
+```
