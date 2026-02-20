@@ -1,1 +1,1 @@
-locust
+locust>=2.15.0

@@ -1,0 +1,15 @@
+.git
+.github
+tests
+__pycache__
+venv
+.env
+.pytest_cache
+requirements_locust.txt
+locustfile.py
+Dockerfile.locust
+README.md
+prometheus.yml
+fastapi-deployment.yaml
+fastapi-service.yaml
+kind
