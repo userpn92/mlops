@@ -3,7 +3,7 @@ kind: Deployment
 metadata:
   name: mlops-deployment
 spec:
-  replicas: 3  # Number of replicas for load balancing
+  replicas: 3
   selector:
     matchLabels:
       app: mlops
@@ -17,4 +17,22 @@ spec:
         image: mlops
         ports:
         - containerPort: 8000
-
+        resources:
+          requests:
+            memory: "512Mi"
+            cpu: "250m"
+          limits:
+            memory: "2Gi"
+            cpu: "1000m"
+        livenessProbe:
+          httpGet:
+            path: /health
+            port: 8000
+          initialDelaySeconds: 60
+          periodSeconds: 15
+        readinessProbe:
+          httpGet:
+            path: /health
+            port: 8000
+          initialDelaySeconds: 30
+          periodSeconds: 10

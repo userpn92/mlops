@@ -1,6 +1,8 @@
-fastapi
-uvicorn
-transformers
-torch
-diskcache
-prometheus-fastapi-instrumentator
+fastapi>=0.100.0
+uvicorn>=0.20.0
+transformers>=4.30.0
+torch>=2.0.0
+diskcache>=5.0.0
+prometheus-fastapi-instrumentator>=6.0.0
+pytest>=7.0.0
+httpx>=0.24.0
