@@ -1,5 +1,5 @@
 # Use the official Python image as the base image
-FROM python:3.12
+FROM python:3.12-slim
 
 # Set the working directory inside the container
 WORKDIR /app
@@ -10,13 +10,8 @@ COPY requirements_locust.txt .
 # Install the dependencies specified in requirements.txt
 RUN pip install --no-cache-dir -r requirements_locust.txt
 
-# Install Locust
-RUN pip install locust
-
 # Copy the locustfile into the container
 COPY locustfile.py .
 
 # Command to run Locust
-#CMD ["locust", "-f", "locustfile.py", "--host", "http://localhost:8000"]
 CMD ["locust"]
-
